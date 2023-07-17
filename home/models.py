@@ -26,7 +26,7 @@ class FlexPage(Page):
     body = RichTextField(blank = True)
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
-        FieldPanel('body', classname = 'full'),
+        FieldPanel('body', classname = 'full')
     ]
 
 class SecondPage(Page):
@@ -35,7 +35,7 @@ class SecondPage(Page):
     body = RichTextField(blank = True)
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
-        FieldPanel('body', classname = 'full'),
+        FieldPanel('body', classname = 'full')
     ]
 
 class Meta:
