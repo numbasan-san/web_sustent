@@ -19,8 +19,8 @@ class HomePage(Page):
         FieldPanel('zelda', classname = 'full')
     ]
 
-class Indicador(Page):
-    template = 'home/indicador.html'
+class Login(Page):
+    template = 'home/login.html'
     subtitle = RichTextField(max_length = 100, null = True, blank = True)
     body = RichTextField(blank = True)
     corp = RichTextField(blank = True)
