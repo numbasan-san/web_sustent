@@ -3,6 +3,7 @@ from django.db import models
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
+from wagtail.fields import StreamField
 
 class HomePage(Page):
     summary = models.CharField(max_length = 140, default = '')
@@ -92,6 +93,15 @@ class PMO(Page):
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
         FieldPanel('body', classname = 'full')
+    ]
+
+class ParametroIndicador(Page):
+    template = 'home/test.html'
+    codigo = RichTextField(blank = False)
+    atributo = RichTextField(blank = False)
+    content_panels = Page.content_panels + [
+        FieldPanel('codigo'),
+        FieldPanel('atributo'),
     ]
 
 class Meta:

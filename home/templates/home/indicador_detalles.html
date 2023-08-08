@@ -55,6 +55,17 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
 
 <h2>Indicadores: Detalles de Indicador</h2>
 <div class="mb-6" id="detalles">
+    <table>
+    {% load wagtailcore_tags %}
+
+    {% for block in page.body %}
+        {% if block.block_type == 'table' %}
+            {% include_block block %}
+        {% else %}
+            {# rendering for other block types #}
+        {% endif %}
+    {% endfor %}
+</table>
     <table class="table table-bordered table-hover">
         <tr>
             <th colspan="6" id="year">2022</th>
@@ -139,7 +150,7 @@ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLAS
             <a href="/indicador/form_validacion/" class="btn btn-primary">Enviar a Revision</a>
         </div>
         <div class="col-md-1">
-            <a href="/indicador/indicador_grafico/" class="btn btn-primary float-end">Ver Análisis</a>
+            <a href="/indicador/indicador_grafico/" class="btn btn-primary float-end">Ver Gráfico</a>
         </div>
         <div class="col-md-1">
             <a href="/indicador/indicador_parametros/" class="btn btn-primary float-end">Ver Parámetros</a>
