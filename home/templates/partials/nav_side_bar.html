@@ -3,12 +3,23 @@
         <div class="col-2">
             <div style="margin: 10%;">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <a href="#" class="nav-link active" aria-current="page">
-                            <img width="30" height="30" src="https://static.vecteezy.com/system/resources/thumbnails/000/425/085/small/Multimedia__2814_29.jpg">
-                            Home
-                        </a>
-                    </li>
+                    
+                    {% if page.get_parent.url == None %}
+                        <li class="list-group-item">
+                            <a href="" class="nav-link active" aria-current="page">
+                                <img width="30" height="30" src="https://static.vecteezy.com/system/resources/thumbnails/000/425/085/small/Multimedia__2814_29.jpg">
+                                Home
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item">
+                            <a href="{{ page.get_parent.url }}" class="nav-link active" aria-current="page">
+                                <img width="30" height="30" src="https://static.vecteezy.com/system/resources/thumbnails/000/425/085/small/Multimedia__2814_29.jpg">
+                                Home
+                            </a>
+                        </li>
+                    {% endif %}
+                    
                     <li class="list-group-item">
                         <label>Indicadores</label>
                         <a href="/indicador/" class="nav-link active" aria-current="page">

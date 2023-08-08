@@ -13,7 +13,11 @@
         <div class="container-fluid">
 
             <!-- La parte de la izquierda del navbar -->
-            <a class="navbar-brand" href="{{ page.get_parent.url }}">Web Sustent</a>
+            {% if page.get_parent.url == None %}
+                <a class="navbar-brand" href="">Web Sustent</a>
+            {% else %}
+                <a class="navbar-brand" href="{{ page.get_parent.url }}">Web Sustent</a>
+            {% endif %}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
