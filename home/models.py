@@ -33,8 +33,8 @@ class Login(Page):
     subpages_types = ["IndicadorDetalles"]
     #  "IndicadorFormulario", "IndicadorGrafico", "IndicadorParametros"
 
-class IndicadorDetalles(Page):
-    template = 'home/indicador_detalles.html'
+class Indicador(Page):
+    template = 'home/indicador.html'
     subtitle = RichTextField(max_length = 100, null = True, blank = True)
     body = RichTextField(blank = True)
     corp = RichTextField(blank = True)

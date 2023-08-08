@@ -1,0 +1,255 @@
+
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block content %}
+
+<!-- El navbar de arriba y las cosas de boostrap -->
+{% include "partials/header.html" %}
+
+    <!-- El contenido debajo del navbar -->
+    <div class="row">
+    
+        <!-- La barra lateral de la izquierda -->
+        {% include "partials/nav_side_bar.html" %}
+        
+        <!-- El contenido de la derecha -->
+        <div class="col ">
+            <div class="row">
+
+                <!-- Los tabs de navegación -->
+                <div class="col-9">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="contenido-tab" data-bs-toggle="tab" data-bs-target="#contenido" type="button" role="tab" aria-controls="contenido" aria-selected="true">Contenido</button>
+                            <button class="nav-link" id="analisis-tab" data-bs-toggle="tab" data-bs-target="#analisis" type="button" role="tab" aria-controls="analisis" aria-selected="false">Análisis</button>
+                            <button class="nav-link" id="protocolo-tab" data-bs-toggle="tab" data-bs-target="#protocolo" type="button" role="tab" aria-controls="protocolo" aria-selected="false">Protocolo</button>
+                        </div>
+                    </nav>
+                </div>
+
+                <!-- Los botones de ¿acciones? Ni idea de cómo llamarlos -->
+                <div class="col">
+                    <a class="btn btn-primary" href="#">Guardar Borrador</a>
+                    <a class="btn btn-primary" href="#">Enviar Aprovación</a>
+                </div>
+
+                <!-- Los contenidos de los tab de antes, también llamados tab panels -->
+                <div class="tab-content" id="nav-tabContent">
+
+                    <!-- El tab panel del contenido -->
+                    <div class="tab-pane show active" id="contenido" role="tabpanel" aria-labelledby="contenido-tab" tabindex="0">
+                        <main class="container">
+                                <br  />
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Indicadores > Embalaje 302-3</h5>
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Material</th>
+                                                <th scope="col">Mil Ton</th>
+                                                <th scope="col">Porcentaje</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>PET</td>
+                                                <td>148.2</td>
+                                                <td>42.3%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Vidro</td>
+                                                <td>28.5</td>
+                                                <td>8.6%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Lata</td>
+                                                <td>37.9</td>
+                                                <td>11.1%</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                                <br  />
+                            <h4>Preguntas</h4>
+                            <input type="text" class="form-control">
+                            <input type="text" class="form-control">
+                                <br  />
+                            <h4>Años Anteriores:</h4>
+
+                            <div class="accordion" id="accordionPanelsStayOpenExample">
+                                
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                            2022
+                                        </button>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                                        <div class="accordion-body">
+                                            <table class="table table-bordered table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Material</th>
+                                                        <th scope="col">Mil Ton</th>
+                                                        <th scope="col">Porcentaje</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>PET</td>
+                                                        <td>148.2</td>
+                                                        <td>42.3%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Vidro</td>
+                                                        <td>28.5</td>
+                                                        <td>8.6%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Lata</td>
+                                                        <td>37.9</td>
+                                                        <td>11.1%</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                            2021
+                                        </button>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                                        <div class="accordion-body">
+                                            <table class="table table-bordered table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Material</th>
+                                                        <th scope="col">Mil Ton</th>
+                                                        <th scope="col">Porcentaje</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>PET</td>
+                                                        <td>148.2</td>
+                                                        <td>42.3%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Vidro</td>
+                                                        <td>28.5</td>
+                                                        <td>8.6%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Lata</td>
+                                                        <td>37.9</td>
+                                                        <td>11.1%</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                            2020
+                                        </button>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                                        <div class="accordion-body">
+                                            <table class="table table-bordered table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Material</th>
+                                                        <th scope="col">Mil Ton</th>
+                                                        <th scope="col">Porcentaje</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>PET</td>
+                                                        <td>148.2</td>
+                                                        <td>42.3%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Vidro</td>
+                                                        <td>28.5</td>
+                                                        <td>8.6%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Lata</td>
+                                                        <td>37.9</td>
+                                                        <td>11.1%</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </main>
+                    </div>
+                    
+                    <!-- El tab panel del análisis -->
+                    <div class="tab-pane" id="analisis" role="tabpanel" aria-labelledby="analisis-tab" tabindex="0">
+                        <main class="container">
+                                <br  />
+                            <div class="card" id="analisis">
+                                <div class="card-body">
+                                    <div class="mb-6">
+                                        <table class="table table-bordered table-hover">
+                                            <tr>
+                                                <th rowspan="1"></th>
+                                                <th>2022</th>
+                                                <th>2021</th>
+                                                <th>2020</th>
+                                                <th>2019</th>
+                                                <th>2018</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Fuentes Renovables</th>
+                                                <td>{{ page.corp|richtext }}</td>
+                                                <td>{{ page.corp|richtext }}</td>
+                                                <td>{{ page.corp|richtext }}</td>
+                                                <td>{{ page.corp|richtext }}</td>
+                                                <td>{{ page.corp|richtext }}</td>
+                                            </tr>
+                                        </table>
+                                        <center>
+                                            <img src="https://lh4.googleusercontent.com/eKgfVlAQwf5x8pAp8YJsnvbm8siycLuuPyRj3fsCLYmogQCNCTT0iHG3q8Gek2HMO2SdpxGR63NQs30gpBDndUhLp6r5OU2vgLxGtuP0z-dVTAElyg_G7ksJO4HY_3bQMuJ1Mzgkc7PKkejoVDNDe-pRZQPaQZV5KyRQE8Hof7mlrSCGUe0CH-aH_Mfz" alt="jojojojojojojo">
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </main>
+                    </div>
+                    
+                    <!-- El tab panel del protocolo -->
+                    <div class="tab-pane" id="protocolo" role="tabpanel" aria-labelledby="protocolo-tab" tabindex="0">
+                        <main class="container">
+                                <br  />
+                            <p>3</p>
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>     
+    </div>
+
+<!-- El footer -->
+{% include "partials/footer.html" %}
+
+{% endblock %}
