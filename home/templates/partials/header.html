@@ -14,9 +14,13 @@
 
             <!-- La parte de la izquierda del navbar -->
             {% if page.get_parent.url == None %}
-                <a class="navbar-brand" href="">Web Sustent</a>
+                <a style="position: absolute;" class="navbar-brand" href="">
+                    <img width="100" src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Ava2.png" alt="DeberíaIrUnLogoAquí">
+                </a>
             {% else %}
-                <a class="navbar-brand" href="{{ page.get_parent.url }}">Web Sustent</a>
+                <a style="position: absolute;" class="navbar-brand" href="/">
+                    <img width="100" src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Ava2.png" alt="DeberíaIrUnLogoAquí">
+                </a>
             {% endif %}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,10 +31,11 @@
 
                 <!-- La parte de la derecha del navbar -->
                 <ul class="navbar-nav">
+                      
                     <li style="margin-right: 25%;" class="nav-item">
                         <div class="dropdown">
-                            <img style="border-radius: 50%; cursor: pointer;" width="25" height="25" src="https://cdn-icons-png.flaticon.com/512/595/595767.png" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <img style="border-radius: 50%; cursor: pointer;" width="25" height="25" src="https://cdn-icons-png.flaticon.com/512/595/595767.png" class="dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                            <div class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="#">Notificación 1</a>
                                 <a class="dropdown-item" href="#">Notificación 2</a>
                                 <a class="dropdown-item" href="#">Notificación 3</a>
@@ -38,10 +43,24 @@
                         </div>
                     </li>
                     <li style="margin-right: 25%;" class="nav-item">
-                        <img style="border-radius: 50%; cursor: pointer;" width="25" height="25" src="https://cdn.icon-icons.com/icons2/2065/PNG/512/notification_icon_124899.png" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="dropdown">
+                            <img style="border-radius: 50%; cursor: pointer;" width="25" height="25" src="https://cdn.icon-icons.com/icons2/2065/PNG/512/notification_icon_124899.png" class="dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                            <div class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Notificación 1</a>
+                                <a class="dropdown-item" href="#">Notificación 2</a>
+                                <a class="dropdown-item" href="#">Notificación 3</a>
+                            </div>
+                        </div>
                     </li>
                     <li style="margin-right: 25%;" class="nav-item">
-                        <img style="border-radius: 50%; cursor: pointer;" width="25" height="25" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRObzPFR9Q0QbDCka6pl_MtGFW6a9zKoJOh0w&usqp=CAU" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="dropdown">
+                            <img style="border-radius: 50%; cursor: pointer;" width="25" height="25" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRObzPFR9Q0QbDCka6pl_MtGFW6a9zKoJOh0w&usqp=CAU" class="dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                            <div class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Opción de Usuario 1</a>
+                                <a class="dropdown-item" href="#">Opción de Usuario 2</a>
+                                <a class="dropdown-item" href="#">Opción de Usuario 3</a>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
