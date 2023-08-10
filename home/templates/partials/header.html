@@ -15,13 +15,11 @@
             <!-- La parte de la izquierda del navbar -->
             {% if page.get_parent.url == None %}
                 <a style="position: absolute;" class="navbar-brand" href="">
-                    <img width="100" src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Ava2.png" alt="DeberíaIrUnLogoAquí">
-                </a>
             {% else %}
                 <a style="position: absolute;" class="navbar-brand" href="/">
+            {% endif %}
                     <img width="100" src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Ava2.png" alt="DeberíaIrUnLogoAquí">
                 </a>
-            {% endif %}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
