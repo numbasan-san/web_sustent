@@ -24,11 +24,11 @@
                     <main class="container">
                         <div class="card">
                             <div class="card-body">
-                                {% if page.get_url == '/informes/ambiental/' %}
+                                {% if '/ambiental/' in page.get_url %}
                                     <h5 class="card-title">Ambiental</h5>
-                                {% elif page.get_url == '/informes/economico/' %}
+                                {% elif '/economico/' in page.get_url %}
                                     <h5 class="card-title">Economico</h5>
-                                {% elif page.get_url == '/informes/social/' %}
+                                {% elif '/social/' in page.get_url %}
                                     <h5 class="card-title">Social</h5>
                                 {% endif %}
                                 <h5 class="card-title">Indicadores > Embalaje 302-3</h5>
