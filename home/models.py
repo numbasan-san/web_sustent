@@ -5,7 +5,7 @@ from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from rest_framework.fields import Field
-from wagtail.images.api.fields import ImageRenditionField
+from wagtail import blocks
 
 class HomePage(Page):
     summary = models.CharField(max_length = 140, default = '')
@@ -33,8 +33,8 @@ class Login(Page):
         FieldPanel('body', classname = 'full')
     ]
 
-class Indicador(Page):
-    template = 'home/indicador.html'
+class Indicadores(Page):
+    template = 'home/indicadores.html'
     subtitle = RichTextField(max_length = 100, null = True, blank = True)
     body = RichTextField(blank = True)
     corp = RichTextField(blank = True)
@@ -62,12 +62,33 @@ class PMO(Page):
         FieldPanel('body', classname = 'full')
     ]
 
-class ImageSerializationField(Field):
+class NuevoInforme(Page):
+    template = 'home/indicador.html'
+
+    tema_material = models.CharField(max_length = 140, default = '')
+    id_indicador = models.CharField(max_length = 140, blank = False)
+    medida = models.CharField(max_length = 140, blank = False)
+    responsable = models.CharField(max_length = 140, blank = False)
+    comentario = models.CharField(max_length = 140, blank = True)
+    estado = models.CharField(max_length = 140, blank = False)
+    # tipo = RichTextField(blank = False, default = '')
     
-    def to_representation(self, value):
-        return {
-            "url": value.file.url,
-            "title": value.title,
-            "width": value.width,
-            "height": value.height,
-        }
+    '''
+    parametros = StreamField([
+        # ('heading', blocks.CharBlock(form_classname="title")),
+        ('nombre', blocks.RichTextBlock()),
+        ('valor', blocks.RichTextBlock()),
+        ('tipo', blocks.RichTextBlock()),
+    ], use_json_field=True)
+    '''
+
+    content_panels = Page.content_panels + [
+        FieldPanel('tema_material', classname = 'full'),
+        FieldPanel('id_indicador', classname = 'full'),
+        FieldPanel('medida', classname = 'full'),
+        FieldPanel('responsable', classname = 'full'),
+        FieldPanel('comentario', classname = 'full'),
+        FieldPanel('estado', classname = 'full'),
+        # FieldPanel('tipo', classname = 'full'),
+        # FieldPanel('parametros', classname = 'full'),
+    ]

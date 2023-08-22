@@ -4,25 +4,20 @@
             <div style="margin: 10%;">
                 <ul class="list-group list-group-flush">
                     
-                    {% if page.get_parent.url == None %}
-                        <li class="list-group-item">
+                    <li class="list-group-item">
+                        {% if page.get_parent.url == None %}
                             <a href="" class="nav-link active" aria-current="page">
+                        {% else %}
+                            <a href="/" class="nav-link active" aria-current="page">
+                        {% endif %}
                                 <img width="30" height="30" src="https://static.vecteezy.com/system/resources/thumbnails/000/425/085/small/Multimedia__2814_29.jpg">
                                 Home
                             </a>
                         </li>
-                    {% else %}
-                        <li class="list-group-item">
-                            <a href="{{ page.get_parent.url }}" class="nav-link active" aria-current="page">
-                                <img width="30" height="30" src="https://static.vecteezy.com/system/resources/thumbnails/000/425/085/small/Multimedia__2814_29.jpg">
-                                Home
-                            </a>
-                        </li>
-                    {% endif %}
                     
                     <li class="list-group-item">
                         <label>Indicadores</label>
-                        <a href="/indicador/" class="nav-link active" aria-current="page">
+                        <a href="/indicadores/" class="nav-link active" aria-current="page">
                             <img width="30" height="30" src="https://cdn.vectorstock.com/i/preview-1x/62/06/double-click-icon-vector-47196206.jpg">
                             Recolectar
                         </a>
