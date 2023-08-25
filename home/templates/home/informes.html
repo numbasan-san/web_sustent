@@ -36,11 +36,12 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Material</th>
-                                            <th scope="col">Mil Ton</th>
+                                            <th scope="col">Medida (Unidad)</th>
                                             <th scope="col">Porcentaje</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <!--  -->
                                         <tr>
                                             <td>PET</td>
                                             <td>148.2</td>
@@ -64,6 +65,41 @@
                         <h4>Preguntas</h4>
                         <input type="text" class="form-control">
                         <input type="text" class="form-control" disabled>
+                        {% with father=page.get_parent %}
+
+                            {% with grandfather=father.get_parent %}
+
+                                <p>grandfather({{grandfather}})</p>
+
+                                {% for son in grandfather.specific.get_children %}
+
+                                    {% if '/indicadores/' in son.get_url %}
+
+                                        {% for grandson in son.specific.get_children %}
+
+                                            {% if grandson.specific.tipo in page.get_url %}
+                                                <p class="row table table-bordered table-hover table-striped">      
+                                                    <label class="col">{{ grandson.specific.tema_material | richtext }}</label>
+                                                    <label class="col"><a href="{{ grandson.get_url }}">{{ grandson.specific.id_indicador | richtext }}</a></label>
+                                                    <label class="col">{{ grandson.specific.medida | richtext }}</label>
+                                                    <label class="col">{{ grandson.specific.responsable | richtext }}</label>
+                                                    <label class="col">{{ grandson.specific.comentario | richtext }}</label>
+                                                    <label class="col">{{ grandson.specific.estado | richtext }}</label>
+                                                    <label class="col">{{ grandson.specific.tipo | richtext }}</label>
+                                                </p>
+                                            {% else %}
+                                                <p>Merun-chan kawaii</p>
+                                            {% endif %}
+
+                                        {% endfor %}
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            {% endwith %}
+
+                        {% endwith %}
                     </main>
                 </div>
             </div>

@@ -40,7 +40,7 @@
                                                 {% for grandson in son.specific.get_children %}
                                                     <tr>      
                                                         <td scope="col">{{ grandson.specific.tema_material | richtext }}</td>
-                                                        <td scope="col">{{ grandson.specific.id_indicador | richtext }}</td>
+                                                        <td scope="col"><a href="{{ grandson.get_url }}">{{ grandson.specific.id_indicador | richtext }}</a></td>
                                                         <td scope="col">{{ grandson.specific.medida | richtext }}</td>
                                                         <td scope="col">{{ grandson.specific.responsable | richtext }}</td>
                                                         <td scope="col">{{ grandson.specific.comentario | richtext }}</td>
@@ -49,62 +49,6 @@
                                                 {% endfor %}
                                             {% endif %}
                                         {% endfor %}
-                                        <tr>
-                                            <td>Agua</td>
-                                            <td>305-2</td>
-                                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                                            <td>Laura</td>
-                                            <td></td>
-                                            <td>Cola de Espera</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Eficiencia Energética</td>
-                                            <td>303-4</td>
-                                            <td>Intecidad Energética</td>
-                                            <td>Bianca</td>
-                                            <td></td>
-                                            <td>Aguardando Validación</td>
-                                        </tr>
-                                        <!-- tr>
-                                            <td>Embalagem</td>
-                                            <td>302-3</td>
-                                            <td>Porcentaje de Objetos Reciclados</td>
-                                            <td>Carolina</td>
-                                            <td></td>
-                                            <td>Aún no iniciado</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Eficiencia Energética</td>
-                                            <td>303-4</td>
-                                            <td>Intesidad Energética (MJ/L)</td>
-                                            <td>Bianca</td>
-                                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
-                                            <td>No iniciado y atrasado</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Agua</td>
-                                            <td>305-2</td>
-                                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                                            <td>Laura</td>
-                                            <td></td>
-                                            <td>Cola de Espera</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Eficiencia Energética</td>
-                                            <td>303-4</td>
-                                            <td>Intecidad Energética</td>
-                                            <td>Bianca</td>
-                                            <td></td>
-                                            <td>Aguardando Validación</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Agua</td>
-                                            <td>305-2</td>
-                                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</td>
-                                            <td>Laura</td>
-                                            <td></td>
-                                            <td>Concluido</td>
-                                        </tr -->
                                     </table>
                                 </div>
                             </div>

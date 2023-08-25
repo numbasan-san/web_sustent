@@ -6,6 +6,7 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from rest_framework.fields import Field
 from wagtail import blocks
+from .body_block import BodyBlock
 
 class HomePage(Page):
     summary = models.CharField(max_length = 140, default = '')
@@ -44,6 +45,8 @@ class Indicadores(Page):
         FieldPanel('body', classname = 'full')
     ]
 
+    subpage_types = ['NuevoInforme']
+
 class Informes(Page):
     template = 'home/informes.html'
     subtitle = RichTextField(max_length = 100, null = True, blank = True)
@@ -52,6 +55,7 @@ class Informes(Page):
         FieldPanel('subtitle'),
         FieldPanel('body', classname = 'full')
     ]
+
 
 class PMO(Page):
     template = 'home/pmo.html'
@@ -69,8 +73,9 @@ class NuevoInforme(Page):
     id_indicador = models.CharField(max_length = 140, blank = False)
     medida = models.CharField(max_length = 140, blank = False)
     responsable = models.CharField(max_length = 140, blank = False)
-    comentario = models.CharField(max_length = 140, blank = True)
+    comentario = models.CharField(max_length = 500, blank = True)
     estado = models.CharField(max_length = 140, blank = False)
+    tipo = models.CharField(max_length = 140, blank = False)
     # tipo = RichTextField(blank = False, default = '')
     
     '''
@@ -89,6 +94,8 @@ class NuevoInforme(Page):
         FieldPanel('responsable', classname = 'full'),
         FieldPanel('comentario', classname = 'full'),
         FieldPanel('estado', classname = 'full'),
-        # FieldPanel('tipo', classname = 'full'),
+        FieldPanel('tipo', classname = 'full'),
         # FieldPanel('parametros', classname = 'full'),
     ]
+
+    parent_page_types = ['Indicadores']

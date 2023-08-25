@@ -40,12 +40,13 @@
                                             </thead>
                                             
                                             {% for son in page.specific.get_children %}                                             
-                                            <tr><a class="btn" href="/302-2/">
-                                                    <td scope="col"><a href="{{ son.specific.get_url }}">{{ son.specific.tema_material | richtext }}</a></td>
-                                                    <td scope="col"><a href="{{ son.specific.get_url }}">{{ son.specific.id_indicador | richtext }}</a></td>
-                                                    <td scope="col"><a href="{{ son.specific.get_url }}">{{ son.specific.responsable | richtext }}</a></td>
-                                                    <td scope="col"><a href="{{ son.specific.get_url }}">{{ son.specific.estado | richtext }}</a></td>
-                                                </a></tr>
+                                            <tr>
+                                                <td scope="col">{{ son.specific.tema_material | richtext }}</td>
+                                                <td scope="col">{{ son.specific.id_indicador | richtext }}</td>
+                                                <td scope="col">{{ son.specific.responsable | richtext }}</td>
+                                                <td scope="col">{{ son.specific.estado | richtext }}</td>
+                                                <td scope="col"><a href="{{ son.specific.get_url }}">Abrir</a></td>
+                                            </tr>
                                             {% endfor %}
                                         </table>
                                     </div>
