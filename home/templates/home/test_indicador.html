@@ -1,0 +1,308 @@
+
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block content %}
+
+<!-- El navbar de arriba y las cosas de boostrap -->
+{% include "partials/header.html" %}
+
+    <!-- El contenido debajo del navbar -->
+    <div class="row">
+    
+        <!-- La barra lateral de la izquierda -->
+        {% include "partials/nav_side_bar.html" %}
+        
+        <!-- El contenido de la derecha -->
+        <div class="col ">
+            <div class="row">
+
+                <!-- Los tabs de navegación -->
+                <div class="col-9">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="contenido-tab" data-bs-toggle="tab" data-bs-target="#contenido" type="button" role="tab" aria-controls="contenido" aria-selected="true">Contenido</button>
+                            <button class="nav-link" id="analisis-tab" data-bs-toggle="tab" data-bs-target="#analisis" type="button" role="tab" aria-controls="analisis" aria-selected="false">Análisis</button>
+                            <button class="nav-link" id="protocolo-tab" data-bs-toggle="tab" data-bs-target="#protocolo" type="button" role="tab" aria-controls="protocolo" aria-selected="false">Protocolo</button>
+                        </div>
+                    </nav>
+                </div>
+
+                <!-- Los botones de ¿acciones? Ni idea de cómo llamarlos -->
+                <div class="col">
+                    <a class="btn btn-primary" href="#">Guardar Borrador</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Enviar Aprovación</button>
+                </div>
+
+                <!-- Los contenidos de los tab de antes, también llamados tab panels -->
+                <div class="tab-content"  id="nav-tabContent">
+
+                    <!-- El tab panel del contenido -->
+                    <div class="tab-pane show active" id="contenido" role="tabpanel" aria-labelledby="contenido-tab" tabindex="0">
+                        <main class="container">
+                                <br  />
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Indicadores > {{ page.specific.tema_material }} {{ page.specific.id_indicador }}</h5>
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Material</th>
+                                                <th scope="col">Mil Ton</th>
+                                                <th scope="col">Porcentaje</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for block in page.parametros %}
+                                                {% if block.block_type == 'material' %}
+                                                    <tr>
+                                                        <td>{{ block.value }}</td>
+                                                {% elif block.block_type == 'valor' %}
+                                                        <td>{{ block.value }}</td>
+                                                {% elif block.block_type == 'porcentaje' %}
+                                                        <td>{{ block.value }}</td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                                <br  />
+                            <h4>Preguntas</h4>
+                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" disabled>
+                                <br  />
+                            <h4>Años Anteriores:</h4>
+
+                            {% for parametro in page.parametros %}
+                                <div class="accordion" id="accordionPanelsStayOpenExample">
+                                    <div class="accordion-item">
+                                    {% if parametro.block_type == 'year' %}
+                                        {% with year=parametro.value %}
+                                            <h2 class="accordion-header" id="panelsStayOpen-heading{{ year }}">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ year }}" aria-expanded="false" aria-controls="panelsStayOpen-collapse{{ year }}">
+                                                    año {{ year }}
+                                                </button>
+                                            </h2>
+                                            <div id="panelsStayOpen-collapse{{ year }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading{{ year }}">
+                                        {% endwith %}
+                                                <div class="accordion-body">
+                                                    <table class="table table-bordered table-hover table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Material</th>
+                                                                <th scope="col">Mil Ton</th>
+                                                                <th scope="col">Porcentaje</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for block in page.parametros %}
+                                                                {% if block.block_type == 'material' %}
+                                                                    <tr>
+                                                                        <td>{{ block.value }}</td>
+                                                                {% elif block.block_type == 'valor' %}
+                                                                        <td>{{ block.value }}</td>
+                                                                {% elif block.block_type == 'porcentaje' %}
+                                                                        <td>{{ block.value }}</td>
+                                                                    </tr>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                            2021
+                                        </button>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                                        <div class="accordion-body">
+                                            <table class="table table-bordered table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Material</th>
+                                                        <th scope="col">Mil Ton</th>
+                                                        <th scope="col">Porcentaje</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>PET</td>
+                                                        <td>148.2</td>
+                                                        <td>42.3%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Vidro</td>
+                                                        <td>28.5</td>
+                                                        <td>8.6%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Lata</td>
+                                                        <td>37.9</td>
+                                                        <td>11.1%</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                            2020
+                                        </button>
+                                    </h2>
+                                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                                        <div class="accordion-body">
+                                            <table class="table table-bordered table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Material</th>
+                                                        <th scope="col">Mil Ton</th>
+                                                        <th scope="col">Porcentaje</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>PET</td>
+                                                        <td>148.2</td>
+                                                        <td>42.3%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Vidro</td>
+                                                        <td>28.5</td>
+                                                        <td>8.6%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Lata</td>
+                                                        <td>37.9</td>
+                                                        <td>11.1%</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </main>
+                    </div>
+                    
+                    <!-- El tab panel del análisis -->
+                    <div class="tab-pane" id="analisis" role="tabpanel" aria-labelledby="analisis-tab" tabindex="0">
+                        <main class="container">
+                                <br  />
+                            <div class="card" id="analisis">
+                                <div class="card-body">
+                                    <div class="mb-6">
+                                        <table class="table table-bordered table-hover">
+                                            <tr>
+                                                <th rowspan="1"></th>
+                                                <th>2022</th>
+                                                <th>2021</th>
+                                                <th>2020</th>
+                                                <th>2019</th>
+                                                <th>2018</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Fuentes Renovables</th>
+                                                <td>{{ page.corp|richtext }}</td>
+                                                <td>{{ page.corp|richtext }}</td>
+                                                <td>{{ page.corp|richtext }}</td>
+                                                <td>{{ page.corp|richtext }}</td>
+                                                <td>{{ page.corp|richtext }}</td>
+                                            </tr>
+                                        </table>
+                                        <center>
+                                            <img src="https://lh4.googleusercontent.com/eKgfVlAQwf5x8pAp8YJsnvbm8siycLuuPyRj3fsCLYmogQCNCTT0iHG3q8Gek2HMO2SdpxGR63NQs30gpBDndUhLp6r5OU2vgLxGtuP0z-dVTAElyg_G7ksJO4HY_3bQMuJ1Mzgkc7PKkejoVDNDe-pRZQPaQZV5KyRQE8Hof7mlrSCGUe0CH-aH_Mfz" alt="jojojojojojojo">
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </main>
+                    </div>
+                    
+                    <!-- El tab panel del protocolo -->
+                    <div class="tab-pane" id="protocolo" role="tabpanel" aria-labelledby="protocolo-tab" tabindex="0">
+                        <main class="container">
+                                <br  />
+                            <div id="parametros">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label><b>Descripción:</b></label>
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                        <label><b>Material:</b></label>
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                        <label><b>Tópico GRI:</b></label>
+                                        <p>Lorem</p>
+                                        <label><b>Relevancia del Contenido:</b></label>
+                                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. A eius deleniti non similique optio error ea placeat officiis minima quisquam, rem aut expedita. Delectus qui repellendus laudantium iure natus fugiat.</p>
+                                        <label><b>Fuentes de Documentación:</b></label>
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit facere dolorum, debitis, neque nulla enim doloribus aliquam explicabo dolor dicta praesentium ullam qui sapiente, dolorem aperiam voluptate voluptatem quis tempora. Lorem ipsum dolor sit amet consectetur adipisicing elit. Est,           tenetur! Odit facere corrupti officiis nemo quam suscipit. Consequatur quis quam eaque qui magnam velit necessitatibus totam, esse culpa fuga neque.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+                <!-- Button trigger modal -->
+  
+            </div>
+        </div>     
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Formulario de Validación</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1">Pregunta #1: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem dolore mollitia ut reiciendis molestias architecto eum minima, amet accusamus quo ea recusandae aliquam accusantium necessitatibus, reprehenderit est voluptates? Ad, dolor?</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1">Pregunta #2: Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem ea ad ipsa dolore quas commodi non beatae animi facilis, quis alias tenetur expedita sit nulla voluptate vitae at ducimus atque!</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1">Pregunta #3: Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem ea ad ipsa dolore quas commodi non beatae animi facilis, quis alias tenetur expedita sit nulla voluptate vitae at ducimus atque!</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1">Pregunta #4: Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem ea ad ipsa dolore quas commodi non beatae animi facilis, quis alias tenetur expedita sit nulla voluptate vitae at ducimus atque!</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1">5. Comentario Adicional:</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                        <hr  />
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- El footer -->
+{% include "partials/footer.html" %}
+
+{% endblock %}
