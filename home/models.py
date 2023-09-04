@@ -43,7 +43,7 @@ class Indicadores(Page):
         FieldPanel('body', classname = 'full')
     ]
 
-    # subpage_types = ['NuevoInforme']
+    subpage_types = ['NuevoIndicador']
 
 class Informes(Page):
     template = 'home/informes.html'
@@ -63,6 +63,76 @@ class PMO(Page):
         FieldPanel('body', classname = 'full')
     ]
 
+class NuevoIndicador(Page):
+    template = 'home/indicador.html'
+
+    tema = models.CharField(max_length = 140)
+    id_indicador = models.CharField(max_length = 140)
+    medida = models.CharField(max_length = 140)
+    responsable = models.CharField(max_length = 140)
+    comentario = models.CharField(max_length = 500)
+    estado = models.CharField(max_length = 140, help_text='Coloque alguna de las siguientes opciones: Iniciado, No Iniciado, A Validar, Concluido.')
+    categoria = models.CharField(max_length = 140, help_text='Coloque alguna de las siguientes opciones: Ambiental, Social, Economico.')
+    
+    parametros = StreamField([
+        ('molde', blocks.StructBlock([
+            ('tema', blocks.CharBlock()),
+            ('id_indicador', blocks.CharBlock()),
+            ('medida', blocks.CharBlock()),
+            ('responsable', blocks.CharBlock()),
+            ('comentario', blocks.CharBlock()),
+            ('estado', blocks.ChoiceBlock(choices=[
+                ('iniciado', 'Iniciado'),
+                ('no_iniciado', 'No Iniciado'),
+                ('a_validar', 'A Validar'),
+                ('concluido', 'Concluido'),
+            ])),
+            ('categoria', blocks.ChoiceBlock(choices=[
+                ('ambiental', 'Ambiental'),
+                ('social', 'Social'),
+                ('economico', 'Economico'),
+            ])),
+        ])),
+    ], use_json_field=True)
+
+    historial = StreamField([
+        ('id_year', blocks.StructBlock([
+            ('id', blocks.CharBlock()),
+            ('year', blocks.CharBlock()),
+        ])),
+        ('parameters', blocks.StructBlock([
+            ('id', blocks.CharBlock(help_text='Este input debe tener el mismo valor que el ID del año asociado.')),
+            ('material', blocks.CharBlock()),
+            ('valor', blocks.CharBlock()),
+            ('porcentaje', blocks.CharBlock()),
+        ])),
+    ], use_json_field=True)
+
+    protocolo = StreamField([
+        ('molde', blocks.StructBlock([
+            ('desc', blocks.CharBlock()),
+            ('mater', blocks.CharBlock()),
+            ('topic', blocks.CharBlock()),
+            ('relev', blocks.CharBlock()),
+            ('sources', blocks.CharBlock()),
+        ])),
+    ], use_json_field=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('tema', classname = 'full'),
+        FieldPanel('id_indicador', classname = 'full'),
+        FieldPanel('medida', classname = 'full'),
+        FieldPanel('responsable', classname = 'full'),
+        FieldPanel('comentario', classname = 'full'),
+        FieldPanel('estado', classname = 'full'),
+        FieldPanel('categoria', classname = 'full'),
+        FieldPanel('historial', classname = 'full'),
+        FieldPanel('protocolo', classname = 'full'),
+    ]
+
+    parent_page_types = ['Indicadores']
+
+'''
 class NuevoInforme(Page):
     template = 'home/indicador.html'
 
@@ -70,83 +140,17 @@ class NuevoInforme(Page):
     id_indicador = models.CharField(max_length = 140, blank = False)
     medida = models.CharField(max_length = 140, blank = False)
     responsable = models.CharField(max_length = 140, blank = False)
-    comentario = models.CharField(max_length = 500, blank = True)
-    estado = models.CharField(max_length = 140, blank = False)
-    tipo = models.CharField(max_length = 140, blank = False)
-    # tipo = RichTextField(blank = False, default = '')
-    
-    '''
-    parametros = StreamField([
-        # ('heading', blocks.CharBlock(form_classname="title")),
-        ('nombre', blocks.RichTextBlock()),
-        ('valor', blocks.RichTextBlock()),
-        ('tipo', blocks.RichTextBlock()),
-    ], use_json_field=True)
-    '''
+    comentario = models.CharField(max_length = 500, blank = False)
+    estado = models.CharField(max_length = 140, blank = False, help_text='Coloque alguna de las siguientes opciones: Iniciado, No Iniciado, A Validar, Concluido.')
+    categoria = models.CharField(max_length = 140, blank = False, help_text='Coloque alguna de las siguientes opciones: Ambiental, Social, Economico.')
 
-    content_panels = Page.content_panels + [
-        FieldPanel('tema_material', classname = 'full'),
-        FieldPanel('id_indicador', classname = 'full'),
-        FieldPanel('medida', classname = 'full'),
-        FieldPanel('responsable', classname = 'full'),
-        FieldPanel('comentario', classname = 'full'),
-        FieldPanel('estado', classname = 'full'),
-        FieldPanel('tipo', classname = 'full'),
-        # FieldPanel('parametros', classname = 'full'),
-    ]
-
-    # parent_page_types = ['Indicadores']
-
-class TestInforme(Page):
-    template = 'home/test_indicador.html'
-
-    tema_material = models.CharField(max_length = 140, default = '')
-    id_indicador = models.CharField(max_length = 140, blank = False)
-    medida = models.CharField(max_length = 140, blank = False)
-    responsable = models.CharField(max_length = 140, blank = False)
-    comentario = models.CharField(max_length = 500, blank = True)
-    estado = models.CharField(max_length = 140, blank = False)
-    categoria = models.CharField(max_length = 140, blank = False)
-    
-    parametros = StreamField([
-        # ('heading', blocks.CharBlock(form_classname="title")),
-        ('year', blocks.CharBlock()),
-        ('material', blocks.CharBlock()),
-        ('valor', blocks.CharBlock()),
-        ('porcentaje', blocks.CharBlock()),
-    ], use_json_field=True)
-
-    content_panels = Page.content_panels + [
-        FieldPanel('tema_material', classname = 'full'),
-        FieldPanel('id_indicador', classname = 'full'),
-        FieldPanel('medida', classname = 'full'),
-        FieldPanel('responsable', classname = 'full'),
-        FieldPanel('comentario', classname = 'full'),
-        FieldPanel('estado', classname = 'full'),
-        FieldPanel('categoria', classname = 'full'),
-        FieldPanel('parametros', classname = 'full'),
-    ]
-
-    parent_page_types = ['Indicadores']
-
-class AnoInf(Page):
-    template = 'home/another_test_indicador.html'
-
-    tema_material = models.CharField(max_length = 140, default = '')
-    id_indicador = models.CharField(max_length = 140, blank = False)
-    medida = models.CharField(max_length = 140, blank = False)
-    responsable = models.CharField(max_length = 140, blank = False)
-    comentario = models.CharField(max_length = 500, blank = True) # Debo cambiar esto a esto => comentario = CharBlock(max_length = 500, blank = True)
-    estado = models.CharField(max_length = 140, blank = False)
-    categoria = models.CharField(max_length = 140, blank = False)
-    
-    buroku = StreamField([
+    historial = StreamField([
         ('id_year', blocks.StructBlock([
             ('id', blocks.CharBlock()),
             ('year', blocks.CharBlock()),
         ])),
         ('parameters', blocks.StructBlock([
-            ('id', blocks.CharBlock()),
+            ('id', blocks.CharBlock(help_text='Este input debe tener el mismo valor que el ID del año asociado.')),
             ('material', blocks.CharBlock()),
             ('valor', blocks.CharBlock()),
             ('porcentaje', blocks.CharBlock()),
@@ -160,13 +164,8 @@ class AnoInf(Page):
             ('topic', blocks.CharBlock()),
             ('relev', blocks.CharBlock()),
             ('sources', blocks.CharBlock()),
-            ('choicer', blocks.ChoiceBlock(choices=[
-                ('tea', 'Tea'),
-                ('coffee', 'Coffee'),
-            ]))
         ])),
     ], use_json_field=True)
-
 
     content_panels = Page.content_panels + [
         FieldPanel('tema_material', classname = 'full'),
@@ -176,76 +175,9 @@ class AnoInf(Page):
         FieldPanel('comentario', classname = 'full'),
         FieldPanel('estado', classname = 'full'),
         FieldPanel('categoria', classname = 'full'),
-        FieldPanel('buroku', classname = 'full'),
+        FieldPanel('historial', classname = 'full'),
         FieldPanel('protocolo', classname = 'full'),
     ]
-    
 
     parent_page_types = ['Indicadores']
-
-class MoreInf(Page):
-    template = 'home/another_test_indicador.html'
-
-    tema_material = models.CharField(max_length = 140, default = '')
-    id_indicador = models.CharField(max_length = 140, blank = False)
-    medida = models.CharField(max_length = 140, blank = False)
-    responsable = models.CharField(max_length = 140, blank = False)
-    comentario = models.CharField(max_length = 500, blank = True) # Debo cambiar esto a esto => comentario = CharBlock(max_length = 500, blank = True)
-    estado = models.CharField(max_length = 140, blank = False)
-    categoria = models.CharField(max_length = 140, blank = False)
-    select = StreamField([
-        ('options', blocks.StructBlock([
-            ('choicer', blocks.ChoiceBlock(choices=[
-                ('iniciado', 'Iniciado'),
-                ('no_iniciado', 'No Iniciado'),
-                ('a_validar', 'A Validar'),
-                ('concluido', 'Concluido'),
-            ]))
-        ])),
-    ], use_json_field=True)
-    
-    buroku = StreamField([
-        ('id_year', blocks.StructBlock([
-            ('id', blocks.CharBlock()),
-            ('year', blocks.CharBlock()),
-        ])),
-        ('parameters', blocks.StructBlock([
-            ('id', blocks.CharBlock()),
-            ('material', blocks.CharBlock()),
-            ('valor', blocks.CharBlock()),
-            ('porcentaje', blocks.CharBlock()),
-        ])),
-    ], use_json_field=True)
-
-    protocolo = StreamField([
-        ('molde', blocks.StructBlock([
-            ('desc', blocks.CharBlock()),
-            ('mater', blocks.CharBlock()),
-            ('topic', blocks.CharBlock()),
-            ('relev', blocks.CharBlock()),
-            ('sources', blocks.CharBlock()),
-            ('choicer', blocks.ChoiceBlock(choices=[
-                ('iniciado', 'Iniciado'),
-                ('no_iniciado', 'No Iniciado'),
-                ('a_validar', 'A Validar'),
-                ('concluido', 'Concluido'),
-            ]))
-        ])),
-    ], use_json_field=True)
-
-
-    content_panels = Page.content_panels + [
-        FieldPanel('tema_material', classname = 'full'),
-        FieldPanel('id_indicador', classname = 'full'),
-        FieldPanel('medida', classname = 'full'),
-        FieldPanel('responsable', classname = 'full'),
-        FieldPanel('comentario', classname = 'full'),
-        FieldPanel('estado', classname = 'full'),
-        FieldPanel('categoria', classname = 'full'),
-        FieldPanel('select', classname = 'full'),
-        FieldPanel('buroku', classname = 'full'),
-        FieldPanel('protocolo', classname = 'full'),
-    ]
-    
-
-    parent_page_types = ['Indicadores']
+'''

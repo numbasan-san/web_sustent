@@ -26,7 +26,7 @@
                                     <table class="table table-borderless table-hover table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Tema Material</th>
+                                                <th>Tema</th>
                                                 <th>Indicador</th>
                                                 <th>Unidad de Medida</th>
                                                 <th>Responsable</th>
@@ -34,12 +34,11 @@
                                                 <th>Estado</th>
                                             </tr>
                                         </thead>
-                                        
                                         {% for son in page.specific.get_children %}
                                             {% if '/indicadores/' in son.get_url %}
                                                 {% for grandson in son.specific.get_children %}
                                                     <tr>      
-                                                        <td scope="col">{{ grandson.specific.tema_material | richtext }}</td>
+                                                        <td scope="col">{{ grandson.specific.tema | richtext }}</td>
                                                         <td scope="col"><a href="{{ grandson.get_url }}">{{ grandson.specific.id_indicador | richtext }}</a></td>
                                                         <td scope="col">{{ grandson.specific.medida | richtext }}</td>
                                                         <td scope="col">{{ grandson.specific.responsable | richtext }}</td>

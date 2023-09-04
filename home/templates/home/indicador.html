@@ -49,33 +49,21 @@
                                     <table class="table table-bordered table-hover table-striped">
                                         <thead>
                                             <tr>
-                                                <!-- 
-                                                <th scope="col">{{ page.specific.tema_material }}</th>
-                                                <th scope="col">{{ page.specific.tema_material }}</th>
-                                                <th scope="col">{{ page.specific.tema_material }}</th>
-                                                 -->
-
                                                 <th scope="col">Material</th>
                                                 <th scope="col">Mil Ton</th>
                                                 <th scope="col">Porcentaje</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>PET</td>
-                                                <td>148.2</td>
-                                                <td>42.3%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Vidro</td>
-                                                <td>28.5</td>
-                                                <td>8.6%</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Lata</td>
-                                                <td>37.9</td>
-                                                <td>11.1%</td>
-                                            </tr>
+                                            {% for block in page.historial %}
+                                                {% if block.block_type == 'parameters' %}
+                                                    <tr>
+                                                        <td>{{ block.value.material }}</td>
+                                                        <td>{{ block.value.valor }}</td>
+                                                        <td>{{ block.value.porcentaje }}</td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
@@ -86,123 +74,44 @@
                             <input type="text" class="form-control" disabled>
                                 <br  />
                             <h4>Años Anteriores:</h4>
-
                             <div class="accordion" id="accordionPanelsStayOpenExample">
-                                
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
-                                            2022
-                                        </button>
-                                    </h2>
-                                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                                        <div class="accordion-body">
-                                            <table class="table table-bordered table-hover table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Material</th>
-                                                        <th scope="col">Mil Ton</th>
-                                                        <th scope="col">Porcentaje</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>PET</td>
-                                                        <td>148.2</td>
-                                                        <td>42.3%</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Vidro</td>
-                                                        <td>28.5</td>
-                                                        <td>8.6%</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Lata</td>
-                                                        <td>37.9</td>
-                                                        <td>11.1%</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                {% for parameter in page.historial %}
+                                    <div class="accordion-item">
+                                        {% if parameter.block_type == 'id_year' %}
+                                            <h2 class="accordion-header" id="panelsStayOpen-heading{{ parameter.value.id }}">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ parameter.value.id }}" aria-expanded="false" aria-controls="panelsStayOpen-collapse">
+                                                    <label>{{ parameter.value.year }}</label>
+                                                </button>
+                                            </h2>
+                                            <div id="panelsStayOpen-collapse{{ parameter.value.id }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading{{ parameter.value.id }}">
+                                                <div class="accordion-body">
+                                                    <table class="table table-bordered table-hover table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Material</th>
+                                                                <th scope="col">Mil Ton</th>
+                                                                <th scope="col">Porcentaje</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for para in page.historial %}
+                                                                {% if para.block_type == 'parameters' %}
+                                                                    {% if parameter.value.id == para.value.id %}
+                                                                        <tr>
+                                                                            <td>{{ para.value.material }}</td>
+                                                                            <td>{{ para.value.valor }}</td>
+                                                                            <td>{{ para.value.porcentaje }}%</td>
+                                                                        </tr>
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        {% endif %}
                                     </div>
-                                </div>
-
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                            2021
-                                        </button>
-                                    </h2>
-                                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                                        <div class="accordion-body">
-                                            <table class="table table-bordered table-hover table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Material</th>
-                                                        <th scope="col">Mil Ton</th>
-                                                        <th scope="col">Porcentaje</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>PET</td>
-                                                        <td>148.2</td>
-                                                        <td>42.3%</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Vidro</td>
-                                                        <td>28.5</td>
-                                                        <td>8.6%</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Lata</td>
-                                                        <td>37.9</td>
-                                                        <td>11.1%</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                            2020
-                                        </button>
-                                    </h2>
-                                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                                        <div class="accordion-body">
-                                            <table class="table table-bordered table-hover table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Material</th>
-                                                        <th scope="col">Mil Ton</th>
-                                                        <th scope="col">Porcentaje</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>PET</td>
-                                                        <td>148.2</td>
-                                                        <td>42.3%</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Vidro</td>
-                                                        <td>28.5</td>
-                                                        <td>8.6%</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Lata</td>
-                                                        <td>37.9</td>
-                                                        <td>11.1%</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                {% endfor %}
                             </div>
 
                         </main>
@@ -218,19 +127,19 @@
                                         <table class="table table-bordered table-hover">
                                             <tr>
                                                 <th rowspan="1"></th>
-                                                <th>2022</th>
-                                                <th>2021</th>
-                                                <th>2020</th>
-                                                <th>2019</th>
-                                                <th>2018</th>
+                                                {% for block in page.historial %}
+                                                    {% if block.block_type == 'id_year' %}
+                                                        <th>{{ block.value.year }}</th>
+                                                    {% endif %}
+                                                {% endfor %}
                                             </tr>
                                             <tr>
                                                 <th>Fuentes Renovables</th>
-                                                <td>{{ page.corp|richtext }}</td>
-                                                <td>{{ page.corp|richtext }}</td>
-                                                <td>{{ page.corp|richtext }}</td>
-                                                <td>{{ page.corp|richtext }}</td>
-                                                <td>{{ page.corp|richtext }}</td>
+                                                {% for block in page.historial %}
+                                                    {% if block.block_type == 'id_year' %}
+                                                        <th></th>
+                                                    {% endif %}
+                                                {% endfor %}
                                             </tr>
                                         </table>
                                         <center>
@@ -250,16 +159,20 @@
                             <div id="parametros">
                                 <div class="card">
                                     <div class="card-body">
-                                        <label><b>Descripción:</b></label>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                        <label><b>Material:</b></label>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                        <label><b>Tópico GRI:</b></label>
-                                        <p>Lorem</p>
-                                        <label><b>Relevancia del Contenido:</b></label>
-                                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. A eius deleniti non similique optio error ea placeat officiis minima quisquam, rem aut expedita. Delectus qui repellendus laudantium iure natus fugiat.</p>
-                                        <label><b>Fuentes de Documentación:</b></label>
-                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit facere dolorum, debitis, neque nulla enim doloribus aliquam explicabo dolor dicta praesentium ullam qui sapiente, dolorem aperiam voluptate voluptatem quis tempora. Lorem ipsum dolor sit amet consectetur adipisicing elit. Est,           tenetur! Odit facere corrupti officiis nemo quam suscipit. Consequatur quis quam eaque qui magnam velit necessitatibus totam, esse culpa fuga neque.</p>
+                                        {% for protocolo in page.protocolo %}
+                                            {% if protocolo.block_type == 'molde' %}
+                                                <label><b>Descripción:</b></label>
+                                                <p>{{ protocolo.value.desc }}</p>
+                                                <label><b>Material:</b></label>
+                                                <p>{{ protocolo.value.mater }}</p>
+                                                <label><b>Tópico GRI:</b></label>
+                                                <p>{{ protocolo.value.topic }}</p>
+                                                <label><b>Relevancia del Contenido:</b></label>
+                                                <p>{{ protocolo.value.relev }}</p>
+                                                <label><b>Fuentes de Documentación:</b></label>
+                                                <p>{{ protocolo.value.sources }}</p>
+                                            {% endif %}
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>

@@ -77,15 +77,15 @@
 
                                         {% for grandson in son.specific.get_children %}
 
-                                            {% if grandson.specific.tipo in page.get_url %}
+                                            {% if grandson.specific.categoria in page.get_url %}
                                                 <p class="row table table-bordered table-hover table-striped">      
-                                                    <label class="col">{{ grandson.specific.tema_material | richtext }}</label>
+                                                    <label class="col">{{ grandson.specific.tema | richtext }}</label>
                                                     <label class="col"><a href="{{ grandson.get_url }}">{{ grandson.specific.id_indicador | richtext }}</a></label>
                                                     <label class="col">{{ grandson.specific.medida | richtext }}</label>
                                                     <label class="col">{{ grandson.specific.responsable | richtext }}</label>
                                                     <label class="col">{{ grandson.specific.comentario | richtext }}</label>
                                                     <label class="col">{{ grandson.specific.estado | richtext }}</label>
-                                                    <label class="col">{{ grandson.specific.tipo | richtext }}</label>
+                                                    <label class="col">{{ grandson.specific.categoria | richtext }}</label>
                                                 </p>
                                             {% endif %}
 
