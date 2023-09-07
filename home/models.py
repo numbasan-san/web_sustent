@@ -72,7 +72,7 @@ class NuevoIndicador(Page):
     responsable = models.CharField(max_length = 140)
     comentario = models.CharField(max_length = 500)
     estado = models.CharField(max_length = 140, help_text='Coloque alguna de las siguientes opciones: Iniciado, No Iniciado, A Validar, Concluido.')
-    categoria = models.CharField(max_length = 140, help_text='Coloque alguna de las siguientes opciones: Ambiental, Social, Economico.')
+    categoria = models.CharField(max_length = 140, help_text='Coloque alguna de las siguientes opciones: ambiental, social, economico.')
     
     parametros = StreamField([
         ('molde', blocks.StructBlock([

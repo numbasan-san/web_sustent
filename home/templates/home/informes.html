@@ -24,85 +24,230 @@
                     <main class="container">
                         <div class="card">
                             <div class="card-body">
-                                {% if '/ambiental/' in page.get_url %}
-                                    <h5 class="card-title">Ambiental</h5>
-                                {% elif '/economico/' in page.get_url %}
-                                    <h5 class="card-title">Economico</h5>
-                                {% elif '/social/' in page.get_url %}
-                                    <h5 class="card-title">Social</h5>
-                                {% endif %}
-                                <h5 class="card-title">Indicadores > Embalaje 302-3</h5>
-                                <table class="table table-bordered table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Material</th>
-                                            <th scope="col">Medida (Unidad)</th>
-                                            <th scope="col">Porcentaje</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!--  -->
-                                        <tr>
-                                            <td>PET</td>
-                                            <td>148.2</td>
-                                            <td>42.3%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Vidro</td>
-                                            <td>28.5</td>
-                                            <td>8.6%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lata</td>
-                                            <td>37.9</td>
-                                            <td>11.1%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <select class="form-select" id="tipo">
+                                            <option value="circular">
+                                                Gráfico Circular
+                                            </option>
+                                            <option value="columna">
+                                                Gráfico de Columnas
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <button onclick="cargarGrafico()" class="btn btn-primary">Crear Gráfico</button>
+                                    </div>
+                                </div>
+                                <input type="hidden" value="" id="titulo">
+                                <div class="datos" id="datos">
+                                    {% with father=page.get_parent %}
+            
+                                        {% with grandfather=father.get_parent %}
+            
+                                            {% for son in grandfather.specific.get_children %}
+            
+                                                {% if '/indicadores/' in son.get_url %}
+            
+                                                    {% for grandson in son.specific.get_children %}
+            
+                                                        {% if grandson.specific.categoria in page.get_url %}
+                                                            {% for param in grandson.specific.historial  %}
+                                                                {% if param.block_type == 'parameters' %}
+                                                                    <div class="dato">
+                                                                        <input class="serie" value="{{ param.value.material }}" type="hidden"  />
+                                                                        <input class="valor" value="{{ param.value.valor }}" type="hidden"  />
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        {% endif %}
+            
+                                                    {% endfor %}
+            
+                                                {% endif %}
+            
+                                            {% endfor %}
+            
+                                        {% endwith %}
+            
+                                    {% endwith %}
+                                    <center>
+                                        <div id="piechart"></div>
+                                    </center>
+                                </div>
                             </div>
                         </div>
                             <br  />
                         <h4>Preguntas</h4>
                         <input type="text" class="form-control">
                         <input type="text" class="form-control" disabled>
-                        {% with father=page.get_parent %}
+                            <br  />
+                        <div class="accordion" id="accordionPanelsStayOpenExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-heading-table">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-table" aria-expanded="false" aria-controls="panelsStayOpen-collapse">
+                                        <label>historial</label>
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapse-table" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading-table">
+                                    <div class="accordion-body">
+                                        <table class="table table-bordered table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tema</th>
+                                                    <th>Indicador</th>
+                                                    <th>Unid. de Medida</th>
+                                                    <th>Responsable</th>
+                                                    <th>Comentario</th>
+                                                    <th>Estado</th>
+                                                    <th>Año</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% with father=page.get_parent %}
+                        
+                                                    {% with grandfather=father.get_parent %}
+                        
+                                                        {% for son in grandfather.specific.get_children %}
+                        
+                                                            {% if '/indicadores/' in son.get_url %}
+                        
+                                                                {% for grandson in son.specific.get_children %}
+                        
+                                                                    {% if grandson.specific.categoria in page.get_url %}
+                                                                        <tr>
+                                                                            <td>{{ grandson.specific.tema | richtext }}</td>
+                                                                            <td><a href="{{ grandson.get_url }}">{{ grandson.specific.id_indicador | richtext }}</a></td>
+                                                                            <td>{{ grandson.specific.medida | richtext }}</td>
+                                                                            <td>{{ grandson.specific.responsable | richtext }}</td>
+                                                                            <td>{{ grandson.specific.comentario | richtext }}</td>
+                                                                            <td>{{ grandson.specific.estado | richtext }}</td>
+                                                                             <td>
+                                                                                {% for param in grandson.specific.historial  %}
+                                                                                    {% if param.block_type == 'id_year' %}
+                                                                                        <label>{{ param.value.year }},</label>
+                                                                                    {% endif %}
+                                                                                {% endfor %}
+                                                                            </td>
+                                                                        </tr>
+                                                                    {% endif %}
+                        
+                                                                {% endfor %}
+                        
+                                                            {% endif %}
+                        
+                                                        {% endfor %}
+                        
+                                                    {% endwith %}
+                        
+                                                {% endwith %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                            {% with grandfather=father.get_parent %}
-
-                                <p>grandfather({{grandfather}})</p>
-
-                                {% for son in grandfather.specific.get_children %}
-
-                                    {% if '/indicadores/' in son.get_url %}
-
-                                        {% for grandson in son.specific.get_children %}
-
-                                            {% if grandson.specific.categoria in page.get_url %}
-                                                <p class="row table table-bordered table-hover table-striped">      
-                                                    <label class="col">{{ grandson.specific.tema | richtext }}</label>
-                                                    <label class="col"><a href="{{ grandson.get_url }}">{{ grandson.specific.id_indicador | richtext }}</a></label>
-                                                    <label class="col">{{ grandson.specific.medida | richtext }}</label>
-                                                    <label class="col">{{ grandson.specific.responsable | richtext }}</label>
-                                                    <label class="col">{{ grandson.specific.comentario | richtext }}</label>
-                                                    <label class="col">{{ grandson.specific.estado | richtext }}</label>
-                                                    <label class="col">{{ grandson.specific.categoria | richtext }}</label>
-                                                </p>
-                                            {% endif %}
-
-                                        {% endfor %}
-
-                                    {% endif %}
-
-                                {% endfor %}
-
-                            {% endwith %}
-
-                        {% endwith %}
                     </main>
                 </div>
             </div>
         </div>
     </div>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        //Variable que guarda la cantidad de leyendas a insertar en el gráfico
+        let cantidadLeyendas;
+        //Este arreglo guardara los pares de elementos que se insertaran en el grafico:
+        //Se guardara en formato de arreglo. Ejemplo: 
+        //[['leyenda 1', 600],['leyenda 2', 200]]
+        var arregloDatos = [];
+
+        //Funciòn que agregar una leyenda mas
+        function agregarDato() {
+            //tomo la cantidad de leyendas actual
+            cantidadLeyendas = document.getElementsByClassName("dato").length;
+            //Le sumo 1
+            cantidadLeyendas++;
+
+            //Creo un nuevo elemento div, que contendra los datos nuevos
+            const dato = document.createElement("div");
+            dato.className = "dato";
+
+            //Creo el input de la leyenda y le asigno sus propiedades y clases
+            const inputLeyenda = document.createElement("input");
+            inputLeyenda.type = "text";
+            inputLeyenda.className = "serie";
+            inputLeyenda.placeholder = "Leyenda " + cantidadLeyendas;
+            //Agrego el input al div datos
+            dato.appendChild(inputLeyenda);
+            document.getElementById("datos").appendChild(dato);
+
+            //Creo el input para el valor y le asigno sus propiedades y clases
+            const inputValor = document.createElement("input");
+            inputValor.type = "text";
+            inputValor.className = "valor";
+            inputValor.placeholder = "Valor " + cantidadLeyendas;
+            //Agrego el input al div datos
+            dato.appendChild(inputValor);
+            document.getElementById("datos").appendChild(dato);
+        }
+
+        //Función que cargar el gràfico de Google
+        function cargarGrafico() {
+            // Cargo el gráfico de Google
+            google.charts.load('current', {
+                'packages': ['corechart']
+            });
+            google.charts.setOnLoadCallback(drawChart);
+        }
+
+        // Dibujo el gráfico y coloco los valores
+        function drawChart() {
+            arregloDatos = [];
+            //Recupero los inputs que hay dentro del div datos
+            var datos = document.getElementById("datos").getElementsByTagName("input");
+            //El primer par [x,x] a insertar en arregloDatos debe ser info del grafico.
+            //Esta info no es visible, por lo tanto es indistinto el valor que le asignemos
+
+            //Controlo que todos los input tengan un valor cargado
+            for (i = 0; i < datos.length; i++) {
+                if (datos[i].value === "") {
+                    alert("Cargue todos los campos");
+                    return;
+                }
+            }
+            var t = ['Gráfico', ''];
+            arregloDatos.push(t);
+
+            for (i = 0; i < datos.length; i = i + 2) {
+                //voy agregando los pares al arreglo arreglo arregloDatos.
+                t = [datos[i].value, parseInt(datos[i + 1].value)];
+                arregloDatos.push(t);
+            }
+
+            //Genero la tabla que contiene los datos con el arreglo arregloDatos
+            var data = google.visualization.arrayToDataTable(arregloDatos);
+
+            // Opcional; Agrego el título del gráfico
+            var options = {
+                'title': document.getElementById("titulo").value,
+                'width': 800,
+                'height': 500,
+            };
+
+            // Muestro el gráfico dentro del elemento <div>  con id="piechart"
+            //dependiendo del tipo de grafico
+            if (document.getElementById("tipo").value == "circular") {
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            } else {
+                var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }
+
+        }
+    </script>
 
 <!-- El footer -->
 {% include "partials/footer.html" %}
